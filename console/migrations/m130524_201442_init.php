@@ -37,6 +37,9 @@ class m130524_201442_init extends Migration
             'name' => $this->string()->notNull(),
             'status' => $this->smallInteger()->notNull()
         ]);
+        $this->execute("INSERT INTO `company`(`id`, `name`, `status`) VALUES (1, 'test', 1)");
+        $this->execute("INSERT INTO `company`(`id`, `name`, `status`) VALUES (2, 'test1', 1)");
+        $this->execute("INSERT INTO `company`(`id`, `name`, `status`) VALUES (3, 'test2', 1)");
     }
 
     public function down()
