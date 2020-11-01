@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'name') ?>
             <?= $form->field($model, 'surname') ?>
-            <?= $form->field($model, 'pen_name_id')
-                ->dropDownList(Company::listing($model->company_id), ['prompt' => '---', 'class' => 'pen-name-id form-control']); ?>
+            <?= $form->field($model, 'company_id')
+                ->dropDownList(Company::listing($model->company_id), ['prompt' => '---', 'class' => 'form-control']); ?>
 
             <?php
             echo FileInput::widget([

@@ -51,6 +51,7 @@ class SignupForm extends Model
      */
     public function signup()
     {
+        Yii::$app->params['uploadPath'] = Yii::getAlias("@frontend") . '/web/uploads/';
         if (!$this->validate()) {
             return null;
         }
@@ -58,11 +59,16 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->name = $this->name;
-        $user->icon = $this->icon;
-        $user->icon = UploadedFile::getInstances($this, 'icon');
+        $user->company_id = $this->company_id;
+        $user->file = UploadedFile::getInstances($this::className(), 'icon');
+        $user->officeFiles = UploadedFile::getInstances($this::className(), 'files');
         if ($user->upload()) {
             // file is uploaded successfully
             echo "File successfully uploaded";
+        }
+        if ($user->uploadFiles()) {
+            // file is uploaded successfully
+            echo "Files successfully uploaded";
         }
         $user->surname = $this->surname;
         $user->email = $this->email;

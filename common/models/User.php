@@ -35,7 +35,8 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
-    public $icon;
+    public $file;
+    public $officeFiles;
 
 
     /**
@@ -63,6 +64,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['file', 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
@@ -235,12 +237,34 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function upload() {
         if ($this->validate()) {
-            var_dump($this->icon);
-            $this->icon->saveAs('../uploads/' . $this->icon->baseName . '.' .
-                $this->icon->extension);
+            $this->file->saveAs('../uploads/' . $this->file->baseName . '.' .
+                $this->file->extension);
+            $array = explode(".", $this->file->name);
+            $ext = end($array);
+
+            $this->icon = Yii::$app->security->generateRandomString().".{$ext}";
+            $this->save();
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function uploadFiles() {
+        $skipped = [];
+        $array = [];
+        foreach ( $this->officeFiles as $file ) {
+            if ( !$file->saveAs ( '../uploadfiles/' . $this->id . "_" . $this->file->baseName . '.' . $this->file->extension ) ) {
+                $skipped[] = "File " . $file->baseName . " was not saved.";
+            }
+            $array = explode(".", $this->file->name);
+            $ext = end($array);
+            $array[] = Yii::$app->security->generateRandomString().".{$ext}";
+//            $this->save();
+        }
+        $this->files = json_encode($array);
+        if ( !empty ( $skipped ) ) {
+            Yii::$app->session->setFlash ( 'error' , implode ( "<br>" , $skipped ) );
         }
     }
 }

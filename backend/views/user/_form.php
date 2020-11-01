@@ -23,7 +23,7 @@ echo $form->errorSummary($model);
         <?= $form->field($model, 'surname')->textInput(); ?>
         <?= $form->field($model, 'status_id')->dropDownList($model::status()); ?>
         <?= $form->field($model, 'company_id')
-            ->dropDownList(Company::listing($model->company_id), ['prompt' => '---', 'class' => 'pen-name-id form-control']); ?>
+            ->dropDownList(Company::listing($model->company_id), ['prompt' => '---', 'class' => 'form-control']); ?>
         <?php
         echo FileInput::widget([
             'model' => $model,

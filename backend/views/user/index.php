@@ -30,8 +30,6 @@ echo GridView::widget(
                     return $model->company->name ?? '';
                 }
             ],
-            'icon',
-            'files',
             [
                 'class' => \yii2tech\admin\grid\ActionColumn::class,
                 'template' => '{update} {delete}',
