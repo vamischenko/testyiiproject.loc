@@ -65,6 +65,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['file', 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            ['officeFiles', 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx, xlsx, doc, docx', 'maxFiles' => 4],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }

@@ -40,7 +40,9 @@ class SignupForm extends Model
 
             [['name', 'surname', 'password'], 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
-            ['company_id', 'integer', 'min' => 1]
+            ['company_id', 'integer', 'min' => 1],
+            ['icon', 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            ['files', 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx, xlsx, doc, docx', 'maxFiles' => 4],
         ];
     }
 

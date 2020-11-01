@@ -45,6 +45,7 @@ return [
             'rules' => [
                 '/' => 'site/index',
                 'site/login' => 'site/login',
+                'spreadsheet/download' => 'spreadsheet/download',
                 '<controller>/index' => '<controller>/index',
                 '<controller>/view/<id:\d+>' => '<controller>/view',
                 '<controller>/update/<id:\d+>' => '<controller>/update',
